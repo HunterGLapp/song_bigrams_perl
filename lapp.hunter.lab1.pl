@@ -123,6 +123,44 @@ sub mcw {
     }    
 }
 
+sub mcwNoRepeats {
+    my ($searchWord, @banned) = @_;
+    my @frequencies;
+    my @wordVals;
+    %currentHash = %{$counts{$searchWord}};
+    foreach (@banned)
+    {
+	delete $currentHash{$_};
+    }
+    foreach my $nextWord (sort { $currentHash{$b} <=> $currentHash{$a} } keys %currentHash)
+    {
+	push @wordVals, $nextWord;
+	push @frequencies, $currentHash{$nextWord};
+    }
+    if (! %currentHash)
+    {
+	return "";
+    }
+    if ($frequencies[0] > $frequencies[1])
+    {
+	return $wordVals[0];
+    }
+    else
+    {
+	@candidates;
+	push @candidates, $wordVals[0];
+	my $i = 0;
+	while($i < $#arr)
+	{
+	    if ($frequencies[$i + 1] == $frequencies[$i])
+	    {
+		push @candidates, $wordVals[$i + 1];
+	    }
+	}
+	return $candidates[rand @candidates];
+    }    
+}
+
 sub buildTitle
 {
     my ($startWord) = @_;
@@ -135,7 +173,20 @@ sub buildTitle
 	push @words, $nextWord;   
     } until (($#words >= 20) || ($nextWord eq ""));
     return join(" ", @words);
-    
+}
+
+sub buildTitleNoRepeats
+{
+    my ($startWord) = @_;
+    my @words;
+    my $nextWord;
+    push @words, $startWord;
+    do
+    {
+	$nextWord = mcwNoRepeats($words[-1], @words);
+	push @words, $nextWord;   
+    } until (($#words >= 20) || ($nextWord eq ""));
+    return join(" ", @words);
 }
 
 sub printHash
@@ -163,8 +214,8 @@ while(! $finish)
     print "\n";
     my $input = <STDIN>;
     chomp($input);
-    printHash($input);
-    print buildTitle($input);
+    #printHash($input);
+    print buildTitleNoRepeats($input);
     if ($input eq "q")
     {
 	$finish = 1;
