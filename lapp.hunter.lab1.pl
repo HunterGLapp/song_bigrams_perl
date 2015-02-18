@@ -68,7 +68,7 @@ while($line = <INFILE>) {
     else
     {
 	$title = lc($title);
-	my @words = split( /\W+/, $title);
+	my @words = split( /\s+/, $title);
 	for my $i (0 .. $#words - 1)
 	{
 	    my $curr = $words[$i];
@@ -89,10 +89,66 @@ while($line = <INFILE>) {
 # Close the file handle
 close INFILE; 
 
+sub mcw {
+    my ($searchWord) = @_;
+    my @frequencies;
+    my @wordVals;
+    %currentHash = %{$counts{$searchWord}};
+    foreach my $nextWord (sort { $currentHash{$b} <=> $currentHash{$a} } keys %currentHash)
+    {
+	push @wordVals, $nextWord;
+	push @frequencies, $currentHash{$nextWord};
+    }
+    if (! %currentHash)
+    {
+	return "";
+    }
+    if ($frequencies[0] > $frequencies[1])
+    {
+	return $wordVals[0];
+    }
+    else
+    {
+	@candidates;
+	push @candidates, $wordVals[0];
+	my $i = 0;
+	while($i < $#arr)
+	{
+	    if ($frequencies[$i + 1] == $frequencies[$i])
+	    {
+		push @candidates, $wordVals[$i + 1];
+	    }
+	}
+	return $candidates[rand @candidates];
+    }    
+}
 
-# At this point (hopefully) you will have finished processing the song 
-# title file and have populated your data structure of bigram counts.
-print $numLines;
+sub buildTitle
+{
+    my ($startWord) = @_;
+    my @words;
+    my $nextWord;
+    push @words, $startWord;
+    do
+    {
+	$nextWord = mcw($words[-1]);
+	push @words, $nextWord;   
+    } until (($#words >= 20) || ($nextWord eq ""));
+    return join(" ", @words);
+    
+}
+
+sub printHash
+{
+    my ($input) = @_;
+    %currentHash = %{$counts{$input}};
+    for my $key (keys %currentHash)
+    {
+	my $value = $currentHash{$key};
+	print "$key, $value\n";
+    }
+}
+
 print "\n";
 print "File parsed. Bigram model built.\n\n";
 
@@ -102,21 +158,15 @@ print "File parsed. Bigram model built.\n\n";
 my $finish = 0;
 while(! $finish)
 {
+    print "\n";
     print "Enter a word [Enter 'q' to quit]: ";
     print "\n";
     my $input = <STDIN>;
     chomp($input);
-    %currentHash = %{$counts{$input}};
-    for my $key (keys %currentHash)
-    {
-	my $value = $currentHash{$key};
-	print "$key, $value\n";
-    }
-    if ($input == "q")
+    printHash($input);
+    print buildTitle($input);
+    if ($input eq "q")
     {
 	$finish = 1;
     }
 }
-
-
-# MORE OF YOUR CODE HERE....
