@@ -1,0 +1,81 @@
+Q1:
+birthday
+
+Q2:
+song
+
+Q3:
+59
+
+Q4:
+love
+
+Q5:
+13
+
+Q6:
+happy birthday song for the world is a little girl in the world is a little girl in the world is
+
+Q7:
+sad song for the world is a little girl in the world is a little girl in the world is a
+
+Q8:
+hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey
+
+Q9:
+little girl in the world is a little girl in the world is a little girl in the world is a
+
+Q10:
+There are many repeated phrases. "a little girl in the world is" is one of the most common. Also "you are" over and over.
+
+Q10:
+amore mio babbino caro gianni schicchi 
+
+Q11:
+love you are you are you are you are you are you are you are you are you are you are
+
+Q12:
+little girl like you are you are you are you are you are you are you are you are you are
+
+Q14:
+Many of the titles devolve into repeating patterns because common words are often followed by other common words, songs tend to be repetitive, and with a large corpus, things tend to "average out", as evidenced by then non-repetitiveness of the italian title, since the corpus of italian song titles is small.
+
+Q15:
+I am going to say this counts:
+dammit ornette away me down road blues 11 bagatelles solo tu amor de la vida es el amor de la vida.
+Almost all titles devolve at some point.
+
+Q16:
+I kept an array of words that had already been used in the title and disallowed their inclusion in the rest of the title. This may not be an ideal strategy, since it definitely skews (flattens) the distribution of words. Maybe some sort of simulated annealing-esque (or a "cooldown timer" for already used words) solution would be more appropriate, but the problem of cycles is certainly eliminated.
+
+Q17:
+montana sacra nova scotia 
+
+Q18:
+1: bob marley purt drive me down road blues scotia
+
+Q19:
+I get different titles each time:
+2: bob marley purt drive me down road blues vs world is my heart attack ships that i love you are we
+
+3: bob marley purt drive me down road blues night long way you are my heart is it up your love song
+
+The titles are different because of the random selection that happens when successor words tie in frequency. Since I am disallowing quite a few words, the pool gets smaller, and random selection happens more frequently
+
+Q20:
+dig it up your love you are my heart is this time i don't know what do me down road blues
+
+Q21:
+Perl is fast, processing a million song titles takes about a second on my machine. I also like that it feels like an extension of unix/bash scripting, and the regex capabilities are impressive. It also feels very hackish, which is good and bad. Larry Wall said that writing Perl is "an empirical science" which makes a lot of sense to me.
+
+Q22:
+Perl has an awful type system, silent failures everywhere, too many symbols, and there are many different ways to do even simple things. It barely even has function parameters, looks atrocious, and relies on strings for everything. It is a lot more write-only than most popular languages, and I feel like Perl code would be very difficult to maintain, though it might be easy to bang out a quick and dirty script for a specific purpose.
+
+Q23:
+I did enjoy this lab, I enjoyed the natural language processing aspect, and it is always useful to dip my feet into a new language. I did not enjoy debugging with non-existant error messages, and figuring out which of the ten different ways to accomplish something would be best. 
+
+Q24:
+I probably spent about 12 hours on this lab, maybe more.
+
+Q25:
+I hope not. If I need to do lots of parsing very quickly I might, but Python has spoiled me as far as scripting languages go, and for big personal projects, I like functional languages. I can write Java or C++ for "enterprise" applications. I guess I might use it for machine learning or other AI applications, but I don't really see the benefits of Perl otherwise.

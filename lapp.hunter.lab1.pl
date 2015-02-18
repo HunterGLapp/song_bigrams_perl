@@ -60,6 +60,8 @@ while($line = <INFILE>) {
     $title =~ s/\#//g;
     $title =~ s/\|//g;
 
+    #remove stop words from titles
+    $title =~ s/\b(a|an|and|by|for|from|in|of|on|or|out|the|to|with)\b//gi;
     #add only titles with english characters only
     if ($title =~ /[\x80-\xFF]/)
     {
@@ -215,6 +217,7 @@ while(! $finish)
     my $input = <STDIN>;
     chomp($input);
     #printHash($input);
+    #print mcw($input);
     print buildTitleNoRepeats($input);
     if ($input eq "q")
     {
